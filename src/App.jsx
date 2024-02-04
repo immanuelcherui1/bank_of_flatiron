@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TransactionsTable from "./TransactionsTable"
 import NewTransactions from './NewTransactions';
+import SearchBar from './SearchBar';
 
 function App() {
 
   const [transactions, setTransactions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   useEffect(() => {
     fetch('http://localhost:3000/transactions')
@@ -59,10 +62,16 @@ function App() {
     });
   };
 
+  const filteredTransactions = transactions.filter(transaction =>
+    transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
   return (
     <>
     <h1>BANK OF FLATIRON</h1>
-    <TransactionsTable transactions={transactions}/>
+    <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    <TransactionsTable transactions={filteredTransactions}/>
     <NewTransactions
         formData={formData}
         handleChange={handleChange}
