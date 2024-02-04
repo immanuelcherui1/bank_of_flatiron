@@ -71,12 +71,14 @@ function App() {
     <>
     <h1>BANK OF FLATIRON</h1>
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-    <TransactionsTable transactions={filteredTransactions}/>
-    <NewTransactions
+    <div className="body">
+      <TransactionsTable className="table" transactions={filteredTransactions}/>
+      <NewTransactions className="form"
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
+    </div>
     </>
   )
 }
